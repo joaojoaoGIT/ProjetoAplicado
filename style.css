@@ -109,7 +109,11 @@ p {
    =================================== */
 
 header {
-    background: linear-gradient(135deg, var(--red-primary) 0%, var(--red-dark) 50%, var(--black-dark) 100%);
+    /* imagem de fundo com overlay; fallback para gradiente quando imagem não existir */
+    background:
+        linear-gradient(180deg, rgba(26,26,26,0.45), rgba(234,28,36,0.18)),
+        url("Img/Header.png") center/cover no-repeat;
+    background-blend-mode: overlay;
     color: var(--white-pure);
     padding: 4rem 2rem;
     text-align: center;
@@ -119,6 +123,105 @@ header {
     box-shadow: var(--shadow-xl);
     overflow: hidden;
     position: relative;
+}
+
+/* Logo posicionada no header (responsiva) */
+.header-logo {
+    position: absolute;
+    left: 2rem;
+    top: 1.2rem;
+    width: 70px;
+    height: auto;
+    border-radius: 10px;
+   
+}
+.header-logo:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0,0,0,0.42); }
+
+/* Ajustes responsivos para a logo */
+@media (max-width: 1023px) {
+    .header-logo { left: 1.2rem; top: 1rem; width: 76px; }
+}
+
+@media (max-width: 479px) {
+    /* Em telas pequenas aproximamos a logo do centro superior e reduzimos tamanho */
+    .header-logo { left: 50%; transform: translateX(-50%); top: 0.8rem; width: 64px; }
+    header { padding-top: 3.2rem; padding-bottom: 2rem; }
+}
+
+/* Botão de alternância de tema (claro / escuro) */
+.theme-toggle {
+    position: absolute;
+    right: 2rem;
+    top: 1.1rem;
+    z-index: 3;
+    width: 70px;
+    height: 70px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    color: var(--white-pure);
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+}
+.theme-toggle:hover { transform: translateY(-2px); background: rgba(255,255,255,0.12); box-shadow: 0 10px 20px rgba(0,0,0,0.25); }
+
+@media (max-width: 1023px) {
+    .theme-toggle { right: 1.2rem; top: 1rem; width: 40px; height: 40px; }
+}
+
+@media (max-width: 479px) {
+    .theme-toggle { right: 0.8rem; top: 0.9rem; width: 36px; height: 36px; font-size: 0.95rem; }
+}
+
+/* Modo escuro baseado em variáveis */
+.dark-mode {
+    --white-pure: #0b0b0f;
+    --white-soft: #0f0f13;
+    --black-dark: #f5f5f7;
+    --black-soft: #dcdcdc;
+    --gray-light: #222428;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.35);
+    --shadow-md: 0 8px 16px rgba(0,0,0,0.45);
+    --shadow-lg: 0 16px 32px rgba(0,0,0,0.55);
+}
+
+/* Header mais escuro em modo dark para melhorar contraste */
+.dark-mode header {
+    background:
+        linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)),
+        url("Img/Header.png") center/cover no-repeat;
+    background-blend-mode: multiply;
+}
+
+/* Forçar links da navegação do header para branco no modo escuro (exceção: hover mantém comportamento atual) */
+.dark-mode header nav a {
+    color: #ffffff;
+    border-color: rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+}
+
+/* Hover em modo escuro: manter destaque vermelho (texto + borda) */
+.dark-mode header nav a:hover {
+    color: var(#f3e412);
+    border-color: var(#f3e412);
+    background: rgba(234,28,36,0.08);
+    box-shadow: 0 8px 16px rgba(234,28,36,0.08);
+}
+
+.dark-mode header nav a:hover::before {
+    left: 0;
+    background: var(--red-primary);
+    z-index: -1;
+}
+
+/* Substituir cor #333 por amarelo no modo escuro dentro do fluxograma */
+.dark-mode #fluxograma .highlight p,
+.dark-mode #fluxograma p {
+    color: wheat !important;
 }
 
 /* Efeito de partículas animadas no header */

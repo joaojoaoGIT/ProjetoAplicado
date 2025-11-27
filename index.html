@@ -42,15 +42,18 @@
 </head>
 <body>
     <header>
+        <img src="Img/Logo.png" alt="Logo do projeto" class="header-logo">
         <h1>Lógica Algorítmica de Atribuição em Apps de Delivery</h1>
         <p id="paragrafoHeader">Desvendando os algoritmos por trás do iFood, Rappi e similares</p>
         <nav class="header-nav">
+            <a href="#intro">Introdução</a>
+            <a href="#fluxograma">Fluxograma</a>
             <a href="#fatores">Fatores Chave</a>
             <a href="#algoritmos">Exemplos de Código</a>
-            <a href="#modelos">Modelos de Frota</a>
-            <a href="#fluxograma">Fluxograma</a>
+            <a href="#modelos">Modelos de Frota</a> 
             <a href="#conclusao">Conclusão</a>
         </nav>
+        <button id="themeToggle" class="theme-toggle" aria-label="Alternar modo claro/escuro" title="Alternar tema">🌙</button>
         <!-- blobs/gradients inside header to mimic app feel -->
         <div class="header-blobs" aria-hidden="true">
             <div class="blob b1"></div>
@@ -62,17 +65,42 @@
     <script>
     document.addEventListener('DOMContentLoaded', function(){
         const orderBtn = document.getElementById('orderBtn');
+        const themeToggle = document.getElementById('themeToggle');
 
-        // Apenas ripple no clique; removido modo "adicionar ao carrinho" e confetti
-        orderBtn.addEventListener('click', function(e){
-            const r = document.createElement('span');
-            r.className = 'ripple';
-            const rect = orderBtn.getBoundingClientRect();
-            r.style.left = (e.clientX - rect.left) + 'px';
-            r.style.top = (e.clientY - rect.top) + 'px';
-            orderBtn.appendChild(r);
-            setTimeout(()=> r.remove(), 600);
-        });
+        // Apenas ripple no clique (se existir o botão)
+        if (orderBtn) {
+            orderBtn.addEventListener('click', function(e){
+                const r = document.createElement('span');
+                r.className = 'ripple';
+                const rect = orderBtn.getBoundingClientRect();
+                r.style.left = (e.clientX - rect.left) + 'px';
+                r.style.top = (e.clientY - rect.top) + 'px';
+                orderBtn.appendChild(r);
+                setTimeout(()=> r.remove(), 600);
+            });
+        }
+
+        // Tema: alternância e persistência
+        function applyTheme(theme){
+            if(theme === 'dark'){
+                document.body.classList.add('dark-mode');
+                if(themeToggle) themeToggle.textContent = '☀️';
+            } else {
+                document.body.classList.remove('dark-mode');
+                if(themeToggle) themeToggle.textContent = '🌙';
+            }
+        }
+
+        const saved = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        applyTheme(saved);
+
+        if(themeToggle){
+            themeToggle.addEventListener('click', function(){
+                const next = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+                applyTheme(next);
+                localStorage.setItem('theme', next);
+            });
+        }
 
         // Tabs helper (página já usa switchTab)
         window.switchTab = function(ev, id){
@@ -99,7 +127,7 @@
     </p>
 
     <div class="highlight">
-        <strong>📊 Como funcio:</strong>  A atribuição de pedidos aos entregadores em plataformas como iFood e Rappi é um processo complexo, 
+        <strong>Como funciona:</strong>  A atribuição de pedidos aos entregadores em plataformas como iFood e Rappi é um processo complexo, 
         gerenciado por algoritmos de roteamento e machine learning. Embora os detalhes exatos sejam proprietários, 
         a pesquisa indica uma lógica baseada em um sistema de múltiplos fatores funcionando em tempo real.
     </div>
