@@ -31,4 +31,4 @@ Aplicado
 # TEMA: A lógica de atribuição de entregadores em apps de delivery (iFood/Rappi).
 
 ## 🔵 Acesse o Dossiê Completo 🔵
-[Clique aqui para abrir o site](https://seu-link-aqui.com)
+[Clique aqui para abrir o site]([🔵](https://joaojoaogit.github.io/ProjetoAplicado))
