@@ -12,6 +12,7 @@ Seu site foi completamente **modernizado** com design profissional, animações 
 - **Carrossel automático** que alterna entre 3 slides:
   - Header.png - Análise Técnica
   - Fluxograma.jpeg - Fluxograma Completo
+   - Fluxograma.png - Fluxograma Completo
   - conceitual.png - Banco de Dados
 
 ### Funcionalidades:

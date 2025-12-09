@@ -8,730 +8,400 @@
     <meta name="theme-color" content="#EA1C24">
     <title>Lógica Algorítmica de Atribuição em Apps de Delivery</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Borda e responsividade para o fluxograma */
-        #fluxograma .flowchart-img{
-            border: 6px solid #EA1C24;
-            border-radius: 12px;
-            max-width: 100%;
-            height: auto;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-            display: block;
-            margin: 0.8rem auto;
-        }
-
-        /* Melhor leitura do texto na seção do fluxograma */
-        #fluxograma .highlight p,
-        #fluxograma p {
-            font-size: 1.03rem;
-            line-height: 1.6;
-            color: #333;
-            text-align: justify;
-            margin: 0.6rem 0;
-        }
-
-        /* Ajustes em telas pequenas */
-        @media (max-width: 600px){
-            #fluxograma .highlight{
-                padding: 1.25rem 0.8rem;
-            }
-            #fluxograma .flowchart-img{
-                border-width: 4px;
-            }
-        }
-    </style>
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lógica Algorítmica de Atribuição em Apps de Delivery | ULBRA São Lucas</title>
+  <meta name="description" content="Desvendando os algoritmos por trás do iFood, Rappi e similares. Projeto desenvolvido na escola técnica ULBRA São Lucas.">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <img src="Img/Logo.png" alt="Logo do projeto" class="header-logo">
-        <div class="header-content">
-            <h1>Lógica Algorítmica de Atribuição em Apps de Delivery</h1>
-            <p id="paragrafoHeader">Desvendando os algoritmos por trás do iFood, Rappi e similares</p>
-        </div>
-        <button id="themeToggle" class="theme-toggle" aria-label="Alternar modo claro/escuro" title="Alternar tema">🌙</button>
-        <!-- blobs/gradients inside header to mimic app feel -->
-        <div class="header-blobs" aria-hidden="true">
-            <div class="blob b1"></div>
-            <div class="blob b2"></div>
-            <div class="blob b3"></div>
-        </div>
-    </header>
-
-    <!-- Barra de Navegação Fixa -->
-    <nav class="navbar-fixed" id="navbarFixed">
-        <div class="navbar-container">
-            <img src="Img/Logo.png" alt="Logo" class="navbar-logo">
-            <div class="nav-links">
-                <a href="#intro" class="nav-link">Introdução</a>
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#fluxograma" class="nav-link">Fluxograma</a>
-                <a href="#banco" class="nav-link">Banco</a>
-                <a href="#fatores" class="nav-link">Fatores Chave</a>
-                <a href="#algoritmos" class="nav-link">Algoritmos</a>
-                <a href="#modelos" class="nav-link">Modelos</a>
-                <a href="#conclusao" class="nav-link">Conclusão</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Carrossel de Imagens -->
-    <section class="carousel-section">
-        <div class="carousel-container">
-            <div class="carousel-wrapper">
-                <div class="carousel-slide active">
-                    <img src="Img/Header.png" alt="Header do Projeto">
-                    <div class="slide-content">
-                        <h2>Análise Técnica</h2>
-                        <p>Entenda a lógica por trás dos algoritmos de delivery</p>
-                    </div>
-                </div>
-                <div class="carousel-slide">
-                    <img src="Img/Fluxograma.jpeg" alt="Fluxograma">
-                    <div class="slide-content">
-                        <h2>Fluxograma Completo</h2>
-                        <p>Visualize o processo passo a passo</p>
-                    </div>
-                </div>
-                <div class="carousel-slide">
-                    <img src="Img/conceitual.png" alt="Modelo Conceitual">
-                    <div class="slide-content">
-                        <h2>Banco de Dados</h2>
-                        <p>Modelo de dados do sistema</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Controles do Carrossel -->
-            <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Slide anterior">❮</button>
-            <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Próximo slide">❯</button>
-
-            <!-- Indicadores de Slide -->
-            <div class="carousel-indicators">
-                <span class="indicator active" data-slide="0"></span>
-                <span class="indicator" data-slide="1"></span>
-                <span class="indicator" data-slide="2"></span>
-            </div>
-        </div>
-    </section>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function(){
-        const orderBtn = document.getElementById('orderBtn');
-        const themeToggle = document.getElementById('themeToggle');
-        
-        // ==========================================
-        // CARROSSEL FUNCIONALIDADE
-        // ==========================================
-        const carouselPrev = document.getElementById('carouselPrev');
-        const carouselNext = document.getElementById('carouselNext');
-        const indicators = document.querySelectorAll('.indicator');
-        const slides = document.querySelectorAll('.carousel-slide');
-        let currentSlide = 0;
-        
-        function showSlide(index) {
-            // Remover ativo de todos os slides
-            slides.forEach(slide => slide.classList.remove('active'));
-            indicators.forEach(indicator => indicator.classList.remove('active'));
-            
-            // Adicionar ativo ao slide e indicador atual
-            slides[index].classList.add('active');
-            indicators[index].classList.add('active');
-            
-            currentSlide = index;
-        }
-        
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
-        
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        }
-        
-        // Event listeners para botões do carrossel
-        if (carouselNext) carouselNext.addEventListener('click', nextSlide);
-        if (carouselPrev) carouselPrev.addEventListener('click', prevSlide);
-        
-        // Indicadores clickáveis
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => showSlide(index));
-        });
-        
-        // Auto-play do carrossel (muda a cada 6 segundos)
-        setInterval(nextSlide, 6000);
-        
-        // ==========================================
-        // BARRA DE NAVEGAÇÃO FIXA
-        // ==========================================
-        const navbarFixed = document.getElementById('navbarFixed');
-        const carouselSection = document.querySelector('.carousel-section');
-        
-        function toggleNavbarFixed() {
-            const carouselRect = carouselSection.getBoundingClientRect();
-            
-            // Mostrar navbar quando carrossel sair da view
-            if (carouselRect.bottom < 0) {
-                navbarFixed.classList.add('show');
-            } else {
-                navbarFixed.classList.remove('show');
-            }
-        }
-        
-        window.addEventListener('scroll', toggleNavbarFixed);
-        
-        // Links da navbar fixa com smooth scroll
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                    navbarFixed.classList.remove('show');
-                }
-            });
-        });
-
-
-        // Apenas ripple no clique (se existir o botão)
-        if (orderBtn) {
-            orderBtn.addEventListener('click', function(e){
-                const r = document.createElement('span');
-                r.className = 'ripple';
-                const rect = orderBtn.getBoundingClientRect();
-                r.style.left = (e.clientX - rect.left) + 'px';
-                r.style.top = (e.clientY - rect.top) + 'px';
-                orderBtn.appendChild(r);
-                setTimeout(()=> r.remove(), 600);
-            });
-        }
-
-        // Tema: alternância e persistência
-        function applyTheme(theme){
-            if(theme === 'dark'){
-                document.body.classList.add('dark-mode');
-                if(themeToggle) themeToggle.textContent = '☀️';
-            } else {
-                document.body.classList.remove('dark-mode');
-                if(themeToggle) themeToggle.textContent = '🌙';
-            }
-        }
-
-        const saved = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        applyTheme(saved);
-
-        if(themeToggle){
-            themeToggle.addEventListener('click', function(){
-                const next = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
-                applyTheme(next);
-                localStorage.setItem('theme', next);
-            });
-        }
-
-        // Tabs helper (página já usa switchTab)
-        window.switchTab = function(ev, id){
-            document.querySelectorAll('.tab-btn').forEach(b=> b.classList.remove('active'));
-            ev.currentTarget.classList.add('active');
-            document.querySelectorAll('.tab-content').forEach(c=> c.classList.remove('active'));
-            const el = document.getElementById(id);
-            if(el) el.classList.add('active');
-        }
-    });
-    </script>
-
-    <div class="container">
-        <!-- Seção de Features -->
-        <section id="features" class="features-section">
-            <div class="section-header">
-                <h2>✨ Funcionalidades Principais</h2>
-                <p class="section-subtitle">Descubra os componentes essenciais do sistema de atribuição</p>
-            </div>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Atribuição Inteligente</h3>
-                    <p>Sistema de algoritmos que escolhe o melhor entregador em tempo real, considerando múltiplos fatores</p>
-                    <ul class="feature-list">
-                        <li>Cálculo de proximidade</li>
-                        <li>Análise de performance</li>
-                        <li>Score de compatibilidade</li>
-                    </ul>
-                    <div class="feature-accent"></div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🗺️</div>
-                    <h3>Otimização de Rotas</h3>
-                    <p>Algoritmos avançados que calculam a rota mais eficiente para cada entregador</p>
-                    <ul class="feature-list">
-                        <li>Problema do Caixeiro Viajante</li>
-                        <li>Multi-coleta inteligente</li>
-                        <li>ETA em tempo real</li>
-                    </ul>
-                    <div class="feature-accent"></div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Análise de Dados</h3>
-                    <p>Processamento de grande volume de dados para melhorar a tomada de decisão</p>
-                    <ul class="feature-list">
-                        <li>Machine Learning</li>
-                        <li>Análise preditiva</li>
-                        <li>Padrões comportamentais</li>
-                    </ul>
-                    <div class="feature-accent"></div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Processamento em Tempo Real</h3>
-                    <p>Decisões instantâneas com latência mínima para melhor experiência do usuário</p>
-                    <ul class="feature-list">
-                        <li>Processamento ultra-rápido</li>
-                        <li>Sincronização contínua</li>
-                        <li>Escalabilidade infinita</li>
-                    </ul>
-                    <div class="feature-accent"></div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>Confiabilidade do Sistema</h3>
-                    <p>Garantia de sucesso das entregas com redundância e tratamento de falhas</p>
-                    <ul class="feature-list">
-                        <li>Failover automático</li>
-                        <li>Backup de dados</li>
-                        <li>Monitoramento 24/7</li>
-                    </ul>
-                    <div class="feature-accent"></div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
-                    <h3>Adaptação Dinâmica</h3>
-                    <p>Sistema que aprende e se adapta com o tempo aos padrões de uso</p>
-                    <ul class="feature-list">
-                        <li>Aprendizado contínuo</li>
-                        <li>Ajustes automáticos</li>
-                        <li>Melhoria progressiva</li>
-                    </ul>
-                    <div class="feature-accent"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Introdução -->
-       <section id="intro">
-    <h2>Introdução</h2>
-
-    <p style="margin: 1rem 0; font-size: 1.1rem;">
-        Este site faz parte de um projeto desenvolvido na nossa escola técnica ULBRA São Lucas
-        Aqui buscamos explicar, de forma clara e lógica, como aplicativos de delivery — como iFood e Rappi — 
-        escolhem qual entregador recebe cada pedido. Nosso objetivo é revelar os bastidores desse processo, mostrando 
-        quais decisões o sistema toma, que dados utiliza e por que essa funcionalidade funciona tão bem para 
-        clientes, restaurantes e entregadores.
-    </p>
-
-    <div class="highlight">
-        <strong>Como funciona:</strong>  A atribuição de pedidos aos entregadores em plataformas como iFood e Rappi é um processo complexo, 
-        gerenciado por algoritmos de roteamento e machine learning. Embora os detalhes exatos sejam proprietários, 
-        a pesquisa indica uma lógica baseada em um sistema de múltiplos fatores funcionando em tempo real.
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <img src="Img/Logo.png" alt="AppsDelivery" class="nav-logo-img" style="height:48px; width:auto; margin-right:10px; vertical-align:middle; object-fit:contain;">
+        <span class="nav-logo-text" style="font-weight:600; font-size:1rem; vertical-align:middle;">AppsDelivery</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#introducao">Introdução</a></li>
+        <li><a href="#fluxograma">Fluxograma</a></li>
+        <li><a href="#banco-dados">Banco de Dados</a></li>
+        <li><a href="#fatores">Fatores</a></li>
+        <li><a href="#algoritmos">Algoritmos</a></li>
+        <li><a href="#conclusao">Conclusão</a></li>
+        <li><a href="#sobre-nos">Sobre Nós</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">🌙</button>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
     </div>
+  </nav>
 
-</section>
+  <!-- Hero Section -->
+  <header class="hero" id="hero">
+    <div class="hero-content">
+      <span class="hero-badge">🎓 Projeto ULBRA São Lucas</span>
+      <h1>Lógica Algorítmica de Atribuição em <span class="text-gradient">Apps de Delivery</span></h1>
+      <p class="hero-subtitle">Desvendando os algoritmos por trás do iFood, Rappi e similares</p>
+      <div class="hero-buttons">
+        <a href="#introducao" class="btn btn-primary">Explorar Projeto</a>
+        <a href="#fluxograma" class="btn btn-secondary">Ver Fluxograma</a>
+      </div>
+      </div>
+    </div>
+  </header>
 
-<section id="fluxograma">
-            <h2> Fluxograma de Passo a Passo</h2>
-            <p>Visualize o processo completo de atribuição de pedidos em tempo real:</p>
+  <!-- Carousel Section -->
+  <section class="carousel-section">
+    <div class="carousel" id="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide active">
+          <img src="Img/introducao.png" alt="Introdução" class="carousel-img" data-name="DeliveryApps" data-expl="Visão geral do projeto: objetivo, escopo e público-alvo.">
+          <div class="slide-caption">DeliveryApps</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="Img/Fluxograma.png" alt="Fluxograma" class="carousel-img" data-name="Fluxograma" data-expl="Fluxograma mostrando as etapas de atribuição de pedidos passo a passo.">
+          <div class="slide-caption">Fluxograma</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="Img/conceitual.png" alt="Conceitual (Banco de dados)" class="carousel-img" data-name="Conceitual (Banco de dados)" data-expl="Diagrama conceitual das entidades e relacionamentos do banco de dados.">
+          <div class="slide-caption">Conceitual (Banco de dados)</div>
+        </div>
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-btn" data-slide="0" aria-label="Slide 1"></button>
+        <button class="carousel-btn" data-slide="1" aria-label="Slide 2"></button>
+        <button class="carousel-btn" data-slide="2" aria-label="Slide 3"></button>
+      </div>
+      <button class="carousel-arrow carousel-prev" aria-label="Anterior">❮</button>
+      <button class="carousel-arrow carousel-next" aria-label="Próximo">❯</button>
+    </div>
+    <!-- Modal para visualização ampliada -->
+    <div id="imgModal" class="img-modal" aria-hidden="true">
+      <button class="modal-close" id="modalClose" aria-label="Fechar">×</button>
+      <img id="modalImg" src="" alt="Imagem ampliada">
+      <div class="modal-caption" id="modalCaption"></div>
+    </div>
+  </section>
 
-            <div class="highlight" style="text-align: center; padding: 3rem 2rem;">
-                <p style="margin-bottom: 1.5rem; font-size: 1rem;"><strong> Diagrama do Fluxo de Atribuição</strong></p>
-                <img 
-                    src="Img/Fluxograma.jpeg" 
-                    alt="Fluxograma de atribuição de pedidos - passo a passo do algoritmo iFood" 
-                    style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);"
-                >
-                <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
-                </p>
-                <p style="margin: 1rem 0; font-size: 1.1rem;">
-        O fluxograma mostra como o app decide qual entregador vai receber um pedido. Primeiro, o restaurante precisa aceitar o pedido. Depois disso, o sistema calcula o tempo de preparo e procura entregadores disponíveis na região.
+  <!-- Introdução -->
+  <section class="section" id="introducao">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Sobre o Projeto</span>
+        <h2 class="section-title">Introdução</h2>
+      </div>
+      <div class="intro-content">
+        <div class="intro-text">
+          <p>Este site faz parte de um projeto desenvolvido na nossa escola técnica <strong>ULBRA São Lucas</strong>. Aqui buscamos explicar, de forma clara e lógica, como aplicativos de delivery — como iFood e Rappi — escolhem qual entregador recebe cada pedido.</p>
+          <p>Nosso objetivo é revelar os bastidores desse processo, mostrando quais decisões o sistema toma, que dados utiliza e por que essa funcionalidade funciona tão bem para clientes, restaurantes e entregadores.</p>
+          <div class="highlight-box">
+            <span class="highlight-icon">💡</span>
+            <p>A atribuição de pedidos é um processo complexo, baseado em múltiplos fatores, machine learning e decisões em tempo real.</p>
+          </div>
+        </div>
+        <div class="intro-features">
+          <div class="feature-card">
+            <span class="feature-icon">⚡</span>
+            <h4>Tempo Real</h4>
+            <p>Decisões em milissegundos</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🧠</span>
+            <h4>Machine Learning</h4>
+            <p>Algoritmos inteligentes</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">📊</span>
+            <h4>Big Data</h4>
+            <p>Análise de milhões de dados</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🎯</span>
+            <h4>Otimização</h4>
+            <p>Máxima eficiência</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-Para cada entregador, o app analisa fatores como distância, ocupação, taxa de aceitação e um score geral. Com esses dados, ele gera um ranking e envia o pedido para o melhor colocado.
+  <!-- Fluxograma -->
+  <section class="section section-alt" id="fluxograma">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Processo</span>
+        <h2 class="section-title">Fluxograma de Atribuição</h2>
+        <p class="section-subtitle">Entenda passo a passo como o sistema decide qual entregador recebe cada pedido</p>
+      </div>
+      
+      <div class="flowchart-explanation">
+        <p>O fluxograma mostra como o app decide qual entregador vai receber um pedido. Primeiro, o restaurante aceita o pedido. Depois disso, o sistema calcula o tempo de preparo e procura entregadores disponíveis na região.</p>
+        <p>Para cada entregador, o app analisa:</p>
+        <ul class="analysis-list">
+          <li>📍 Distância até o restaurante</li>
+          <li>📦 Ocupação atual</li>
+          <li>✅ Taxa de aceitação</li>
+          <li>⭐ Score geral</li>
+        </ul>
+      </div>
 
-Se o entregador aceitar, o cliente é notificado.
-Se recusar, o sistema amplia a busca e tenta novamente com outros entregadores até encontrar alguém disponível.
+      <div class="flow-diagram">
+        <div class="flow-image-wrapper">
+          <img src="Img/Fluxograma.png" alt="Fluxograma" class="flow-image" data-name="Fluxograma" data-expl="Fluxograma mostrando as etapas de atribuição de pedidos passo a passo. Clique para ampliar.">
+        </div>
+      </div>
+    </div>
+  </section>
 
-Esse processo garante rapidez e eficiência na entrega.
-    </p>
+  <!-- 18 Etapas -->
+  <section class="section" id="etapas">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Detalhamento</span>
+        <h2 class="section-title">18 Etapas do Processo</h2>
+        <p class="section-subtitle">Cada passo do algoritmo de atribuição explicado</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card"><span class="step-number">1</span><p>Cliente faz o pedido no app</p></div>
+        <div class="step-card"><span class="step-number">2</span><p>App envia pedido para o restaurante</p></div>
+        <div class="step-card"><span class="step-number">3</span><p>Restaurante aceita e informa tempo de preparo</p></div>
+        <div class="step-card"><span class="step-number">4</span><p>Sistema inicia busca por entregadores</p></div>
+        <div class="step-card"><span class="step-number">5</span><p>Filtra entregadores por distância (raio inicial)</p></div>
+        <div class="step-card"><span class="step-number">6</span><p>Verifica disponibilidade (online e sem pedido)</p></div>
+        <div class="step-card"><span class="step-number">7</span><p>Calcula score de cada entregador</p></div>
+        <div class="step-card"><span class="step-number">8</span><p>Considera histórico de aceitação</p></div>
+        <div class="step-card"><span class="step-number">9</span><p>Analisa tempo médio de entrega anterior</p></div>
+        <div class="step-card"><span class="step-number">10</span><p>Verifica modalidade (moto, bike, carro)</p></div>
+        <div class="step-card"><span class="step-number">11</span><p>Gera ranking com pontuação ponderada</p></div>
+        <div class="step-card"><span class="step-number">12</span><p>Envia notificação ao primeiro colocado</p></div>
+        <div class="step-card"><span class="step-number">13</span><p>Aguarda resposta (timeout ~30s)</p></div>
+        <div class="step-card"><span class="step-number">14</span><p>Se aceito: associa pedido ao entregador</p></div>
+        <div class="step-card"><span class="step-number">15</span><p>Se recusado: tenta próximo do ranking</p></div>
+        <div class="step-card"><span class="step-number">16</span><p>Sem candidatos: aumenta raio de busca</p></div>
+        <div class="step-card"><span class="step-number">17</span><p>Cliente é notificado sobre entregador</p></div>
+        <div class="step-card"><span class="step-number">18</span><p>Rastreamento em tempo real é ativado</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banco de Dados -->
+  <section class="section section-alt" id="banco-dados">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Estrutura</span>
+        <h2 class="section-title">Banco de Dados</h2>
+        <p class="section-subtitle">As entidades que sustentam todo o sistema</p>
+      </div>
+      <div class="db-grid">
+        <div class="db-image-wrapper">
+          <img src="Img/conceitual.png" alt="Conceitual (Banco de dados)" class="db-image" data-name="Conceitual (Banco de dados)" data-expl="Diagrama relacionado ao fluxo de dados e entidades.">
+        </div>
+      </div>
+      <div class="db-features">
+        <div class="db-large-card">
+          <h4>Descrição do Modelo de Dados</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fatores Chave -->
+  <section class="section" id="fatores">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Análise</span>
+        <h2 class="section-title">Fatores Chave</h2>
+        <p class="section-subtitle">Os múltiplos critérios que o algoritmo considera</p>
+      </div>
+      <div class="factors-grid">
+        <div class="factor-card primary">
+          <div class="factor-weight">Peso Alto</div>
+          <span class="factor-icon">📍</span>
+          <h4>Proximidade Geográfica</h4>
+          <p>Distância até o restaurante é o fator de maior peso na decisão</p>
+        </div>
+        <div class="factor-card">
+          <span class="factor-icon">📦</span>
+          <h4>Ocupação</h4>
+          <p>Entregadores sem pedido têm prioridade</p>
+        </div>
+        <div class="factor-card">
+          <span class="factor-icon">🛵</span>
+          <h4>Modalidade</h4>
+          <p>Moto, bike ou carro conforme necessidade</p>
+        </div>
+        <div class="factor-card">
+          <span class="factor-icon">📜</span>
+          <h4>Histórico</h4>
+          <p>Entregas anteriores e avaliações</p>
+        </div>
+        <div class="factor-card">
+          <span class="factor-icon">⭐</span>
+          <h4>Performance</h4>
+          <p>Tempo médio e taxa de sucesso</p>
+        </div>
+        <div class="factor-card">
+          <span class="factor-icon">❌</span>
+          <h4>Recusas Recentes</h4>
+          <p>Padrão de rejeição de pedidos</p>
+        </div>
+        <div class="factor-card">
+          <span class="factor-icon">🔋</span>
+          <h4>Bateria</h4>
+          <p>Nível de carga do dispositivo</p>
+        </div>
+        <div class="factor-card">
+          <span class="factor-icon">📡</span>
+          <h4>Telemetria</h4>
+          <p>Qualidade do sinal GPS</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Algoritmos -->
+  <section class="section section-alt" id="algoritmos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Tecnologia</span>
+        <h2 class="section-title">Algoritmos & Modelos</h2>
+        <p class="section-subtitle">A inteligência por trás do sistema</p>
+      </div>
+      <div class="algo-grid">
+        <div class="algo-card">
+          <div class="algo-header">
+            <span class="algo-icon">🧠</span>
+            <h4>Machine Learning</h4>
+          </div>
+          <p>Modelos de ML preveem tempo de preparo, tempo de entrega e probabilidade de aceitação baseados em dados históricos.</p>
+        </div>
+        <div class="algo-card">
+          <div class="algo-header">
+            <span class="algo-icon">🗺️</span>
+            <h4>Otimização de Rotas</h4>
+          </div>
+          <p>Algoritmos calculam a melhor rota considerando trânsito em tempo real, distância e condições da via.</p>
+        </div>
+        <div class="algo-card">
+          <div class="algo-header">
+            <span class="algo-icon">⚖️</span>
+            <h4>Scoring Ponderado</h4>
+          </div>
+          <p>Sistema de pontuação que combina múltiplos fatores com pesos diferentes para ranking de entregadores.</p>
+        </div>
+        <div class="algo-card">
+          <div class="algo-header">
+            <span class="algo-icon">🔄</span>
+            <h4>Feedback Loop</h4>
+          </div>
+          <p>Resultados de cada entrega alimentam o sistema, permitindo aprendizado e melhoria contínua.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conclusão -->
+  <section class="section" id="conclusao">
+    <div class="container">
+      <div class="conclusion-content">
+        <span class="section-badge">Conclusão</span>
+        <h2 class="section-title">O Equilíbrio Perfeito</h2>
+        <p class="conclusion-text">O sistema equilibra <strong>velocidade</strong>, <strong>eficiência</strong> e <strong>disponibilidade</strong> para garantir a melhor entrega no menor tempo possível.</p>
+        <div class="conclusion-pillars">
+          <div class="pillar">
+            <span class="pillar-icon">⚡</span>
+            <h4>Velocidade</h4>
+            <p>Decisões em tempo real</p>
+          </div>
+          <div class="pillar">
+            <span class="pillar-icon">🎯</span>
+            <h4>Eficiência</h4>
+            <p>Otimização de recursos</p>
+          </div>
+          <div class="pillar">
+            <span class="pillar-icon">✅</span>
+            <h4>Disponibilidade</h4>
+            <p>Sistema sempre online</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre Nós -->
+  <section class="section" id="sobre-nos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Equipe</span>
+        <h2 class="section-title">Sobre Nós</h2>
+        <p class="section-subtitle">Conheça a equipe por trás do projeto</p>
+      </div>
+
+      <div class="about-grid">
+        <!-- Card João -->
+        <div class="team-card">
+          <div class="team-photo"><img src="Img/joao.jpeg" alt="João"></div>
+          <div class="team-card-body">
+            <h3 class="team-name">João</h3>
+            <div class="team-info">
+              <div class="team-role">
+                <span class="info-label">FUNÇÃO</span>
+                <p>Desenvolvimento Front-end — layout, interações e responsividade.</p>
+              </div>
+              <div class="team-contrib">
+                <span class="info-label">CONTRIBUIÇÕES</span>
+                <p>Criação do site, responsividade e comandando o projeto.</p>
+              </div>
             </div>
+          </div>
+          <a class="git-btn" href="https://github.com/joaojoaoGIT" target="_blank" rel="noopener noreferrer" aria-label="Abrir GitHub do João">
+            <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+        </div>
 
-            <h3 style="margin-top: 2rem;">📋 Etapas do Processo</h3>
-            <p>O sistema realiza as seguintes etapas em tempo real:</p>
-
-            <div class="grid">
-                <div class="card">
-                    <h4>1️⃣ Pedido Recebido</h4>
-                    <p class="description">Cliente finaliza o pedido no app</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>Restaurante e endereço definidos</li>
-                        <li>Horário e tamanho do pedido conhecido</li>
-                        <li>Sistema aguarda resposta do restaurante</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h4>2️⃣ Validação Inicial</h4>
-                    <p class="description">Verifica entregadores disponíveis</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>Filtra por bateria > 10%</li>
-                        <li>Verifica GPS ativo</li>
-                        <li>Confirma status online</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h4>3️⃣ Cálculo de Scores</h4>
-                    <p class="description">Calcula compatibilidade</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>Distância: 40%</li>
-                        <li>Avaliação: 30%</li>
-                        <li>Dispositivo: 15%</li>
-                        <li>Modal: 15%</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h4>4️⃣ Seleção</h4>
-                    <p class="description">Escolhe melhor opção</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>Compara todos os scores</li>
-                        <li>Aplica algoritmos de otimização</li>
-                        <li>Define rota ideal</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h4>5️⃣ Notificação</h4>
-                    <p class="description">Avisa ao entregador</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>Push notification em tempo real</li>
-                        <li>Detalhes do pedido</li>
-                        <li>Rota sugerida</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h4>6️⃣ Entrega</h4>
-                    <p class="description">Processo de entrega</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>Entregador segue rota otimizada</li>
-                        <li>Confirma coleta e entrega</li>
-                        <li>Atualiza score do entregador</li>
-                    </ul>
-                </div>
+        <!-- Card Kelvyn -->
+        <div class="team-card">
+          <div class="team-photo crop-bottom"><img src="Img/kelvyn.jpeg" alt="Kelvyn"></div>
+          <div class="team-card-body">
+            <h3 class="team-name">Kelvyn</h3>
+            <div class="team-info">
+              <div class="team-role">
+                <span class="info-label">FUNÇÃO</span>
+                <p>Modelagem de dados — estruturas.</p>
+              </div>
+              <div class="team-contrib">
+                <span class="info-label">CONTRIBUIÇÕES</span>
+                <p>Diagrama conceitual, modelagem do banco e lógica de atribuição.</p>
+              </div>
             </div>
-        </section>
-        <section id="banco">
-            <h2> Banco de dados </h2>
-            <p>Visualize o modelo de dados conceitual sobre como armazenam os dados ao chamar o entregador:</p>
+          </div>
+          <a class="git-btn" href="https://github.com/prichoa7" target="_blank" rel="noopener noreferrer" aria-label="Abrir GitHub do Kelvyn">
+            <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <div class="highlight" style="text-align: center; padding: 3rem 2rem;">
-                <p style="margin-bottom: 1.5rem; font-size: 1rem;"><strong> Diagrama do Fluxo de Atribuição</strong></p>
-                <img 
-                    src="Img/conceitual.png" 
-                    alt="Modelo conceitual de banco de dados - passo a passo do algoritmo iFood" 
-                    style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);"
-                >
-                <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
-                </p>
-                <p style="margin: 1rem 0; font-size: 1.1rem;">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, repellat, non dolorem voluptatum voluptas at repudiandae eius saepe laboriosam voluptatem harum deleniti! Sequi, doloribus sit accusantium sapiente quo nam cum.
-    </p>
-            </div>
-            </section>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="Img/Logo.png" alt="AppsDelivery" class="footer-logo">
+          <span>AppsDelivery</span>
+        </div>
+        <p>Projeto desenvolvido na escola técnica ULBRA São Lucas</p>
+        <p class="footer-copy">Feito</p>
+      </div>
+    </div>
+  </footer>
 
-        <section id="fatores">
-            <h2>1️⃣ Fatores Chave de Atribuição</h2>
-            <p>Os algoritmos buscam encontrar o entregador mais adequado para cada pedido, considerando variáveis em tempo real:</p>
-
-            <div class="grid">
-                <div class="card">
-                    <h4><span class="emoji">📍</span>Proximidade Geográfica</h4>
-                    <p class="description">Localização do entregador em relação ao restaurante e ao cliente.</p>
-                    <span class="impact">MÁXIMO IMPACTO</span>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">Prioriza entregadores mais próximos para reduzir tempo de deslocamento e espera.</p>
-                </div>
-
-                <div class="card">
-                    <h4><span class="emoji">📊</span>Score/Rank/Qualidade</h4>
-                    <p class="description">Métrica interna de desempenho histórico do entregador.</p>
-                    <span class="impact">ALTO IMPACTO</span>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">Entregadores com melhor desempenho recebem prioridade na distribuição.</p>
-                </div>
-
-                <div class="card">
-                    <h4><span class="emoji">🛵</span>Modal de Transporte</h4>
-                    <p class="description">Tipo de veículo (moto, bicicleta, carro).</p>
-                    <span class="impact">ALTO IMPACTO</span>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">Pedidos volumosos vão para carros, rotas curtas para motos/bicicletas.</p>
-                </div>
-
-                <div class="card">
-                    <h4><span class="emoji">🕒</span>Agendamento/Disponibilidade</h4>
-                    <p class="description">Horários agendados ou dedicação a regiões específicas.</p>
-                    <span class="impact">ALTO IMPACTO</span>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">Frota dedicada garante prioridade na distribuição local.</p>
-                </div>
-
-                <div class="card">
-                    <h4><span class="emoji">🔋</span>Bateria e GPS</h4>
-                    <p class="description">Status do dispositivo do entregador.</p>
-                    <span class="impact">ESSENCIAL</span>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">Baixa bateria ou GPS impreciso desativa temporariamente o entregador.</p>
-                </div>
-
-                <div class="card">
-                    <h4><span class="emoji">⏳</span>Tempo Estimado de Entrega (ETA)</h4>
-                    <p class="description">Tempo total para completar coleta + rota.</p>
-                    <span class="impact">ALTO IMPACTO</span>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">Sistema escolhe a combinação com ETA mais rápido e eficiente.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Lógica e Exemplos de Delivery -->
-        <section id="algoritmos">
-            <h2>2️⃣ Lógica de Atribuição - Entenda Como Funciona</h2>
-            
-            <h3>📌 Como o Algoritmo Escolhe o Entregador Perfeito?</h3>
-            <p>O sistema iFood funciona em tempo real, calculando um <strong>score de compatibilidade</strong> para cada entregador disponível. Veja o passo a passo:</p>
-
-            <div class="grid">
-                <div class="card">
-                    <h4>1️⃣ Filtro Inicial - Validação Básica</h4>
-                    <p class="description">O sistema primeiro elimina entregadores que NÃO podem fazer a entrega:</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>❌ Bateria abaixo de 10%</li>
-                        <li>❌ GPS desligado ou inativo</li>
-                        <li>❌ Status offline</li>
-                        <li>❌ Veículo inadequado para o volume</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;"><strong>Resultado:</strong> Apenas candidatos viáveis passam para a próxima etapa.</p>
-                </div>
-
-                <div class="card">
-                    <h4>2️⃣ Cálculo de Proximidade (40% do peso)</h4>
-                    <p class="description">Usa GPS para calcular distância até o restaurante:</p>
-                    <div style="background: #f5f5f5; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.85rem;">
-                        <strong>Score Proximidade =</strong><br>
-                        100 - (distância em km × 10) × 0.40
-                    </div>
-                    <p style="font-size: 0.9rem; color: #666;"><strong>Exemplo:</strong> Entregador a 1km = 99 × 0.40 = 39.6 pontos</p>
-                </div>
-
-                <div class="card">
-                    <h4>3️⃣ Avaliação do Entregador (30% do peso)</h4>
-                    <p class="description">Histórico de performance e ratings:</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>⭐ Nota de avaliação (0-5 estrelas)</li>
-                        <li>✅ Taxa de conclusão de entregas</li>
-                        <li>⏱️ Tempo médio de entrega</li>
-                        <li>📸 Fotos e prova de entrega</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;"><strong>Score:</strong> Nota final × 0.30</p>
-                </div>
-
-                <div class="card">
-                    <h4>4️⃣ Status do Dispositivo (15% do peso)</h4>
-                    <p class="description">Verifica saúde do equipamento:</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>🔋 Nível de bateria</li>
-                        <li>📡 Força do sinal GPS</li>
-                        <li>📱 Versão do app atualizada</li>
-                        <li>💾 Memória disponível</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;"><strong>Critério:</strong> Bateria > 10% = 100% × 0.15</p>
-                </div>
-
-                <div class="card">
-                    <h4>5️⃣ Adequação do Modal (15% do peso)</h4>
-                    <p class="description">Tipo de veículo versus tamanho do pedido:</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>🛵 <strong>Moto/Bicicleta:</strong> Até 10kg (rápido e econômico)</li>
-                        <li>🚗 <strong>Carro:</strong> Acima de 50kg (itens grandes)</li>
-                        <li>⚖️ <strong>Caso intermediário:</strong> Score reduzido</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;"><strong>Score:</strong> Até 100 × 0.15 se adequado</p>
-                </div>
-
-                f
-                <div class="card">
-                    <h4>🎯 Score Final</h4>
-                    <p class="description">Soma ponderada de todos os fatores:</p>
-                    <div style="background: #221d1d; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.85rem;">
-                        <strong>Score Final =</strong><br>
-                        Score Proximidade 
-                        + Score Avaliação
-                        + Score Dispositivo
-                        + Score Modal
-
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #eeeeee;"><strong>Vencedor:</strong> O entregador com MAIOR score total recebe o pedido!</p>
-                </div>
-            </div>
-
-            <h3 style="margin-top: 2rem;">🔄 Exemplo Prático - Cenário Real iFood</h3>
-            <div class="highlight">
-                <p><strong>📍 Pedido chegou:</strong> Pizza de 2kg do Pizzaria XYZ (Zona Sul) para cliente na Av. Paulista</p>
-                <p style="margin-top: 1rem;"><strong>🚚 3 Entregadores disponíveis:</strong></p>
-                <table class="comparison-table" style="margin-top: 1rem;">
-                    <thead>
-                        <tr>
-                            <th>Entregador</th>
-                            <th>Distância</th>
-                            <th>Avaliação</th>
-                            <th>Bateria</th>
-                            <th>Modal</th>
-                            <th style="color: #F1C40F; font-weight: bold;">SCORE FINAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Pedro (ID 1)</strong></td>
-                            <td>800m</td>
-                            <td>4.8 ⭐</td>
-                            <td>95%</td>
-                            <td>Moto ✓</td>
-                            <td style="color: #EA1D2C; font-weight: bold;">88.2</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Maria (ID 2)</strong></td>
-                            <td>1.5km</td>
-                            <td>4.2 ⭐</td>
-                            <td>60%</td>
-                            <td>Carro ✗</td>
-                            <td style="color: #666;">71.5</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Carlos (ID 3)</strong></td>
-                            <td>2km</td>
-                            <td>4.5 ⭐</td>
-                            <td>88%</td>
-                            <td>Bicicleta ✓</td>
-                            <td style="color: #666;">76.8</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p style="margin-top: 1.5rem;"><strong style="color: #EA1D2C; font-size: 1.1rem;">✅ RESULTADO: Pedro é escolhido!</strong> Melhor score, mais próximo, avaliação excelente e veículo adequado.</p>
-            </div>
-
-            <h3 style="margin-top: 2rem;">⚡ O Que Muda o Resultado?</h3>
-            <div class="grid">
-                <div class="card">
-                    <h4>💪 Aumenta seu Score</h4>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>Manter bateria sempre carregada</li>
-                        <li>Receber boas avaliações de clientes</li>
-                        <li>Estar perto de restaurantes movimentados</li>
-                        <li>GPS sempre ativo e preciso</li>
-                        <li>Usar veículo correto por tipo de pedido</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h4>📉 Diminui seu Score</h4>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>Bateria baixa (&lt;10%)</li>
-                        <li>Avaliações ruins de clientes</li>
-                        <li>Estar longe das regiões ativas</li>
-                        <li>GPS desligado ou inconsistente</li>
-                        <li>Usar modal inadequado ao pedido</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Roteamento Multi-Coleta -->
-            <h3 style="margin-top: 2rem;">🗺️ Otimização de Rota - Multi-Coleta (Batching)</h3>
-            <p>Quando um entregador recebe <strong>múltiplos pedidos</strong> para entregar, o sistema automaticamente encontra a <strong>ordem ideal</strong> para minimizar distância e tempo.</p>
-            
-            <div class="grid">
-                <div class="card">
-                    <h4>📍 Como Funciona o Batching</h4>
-                    <p class="description">O sistema agrupa pedidos geograficamente próximos:</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li><strong>Fase 1:</strong> Recebe múltiplos pedidos simultâneos</li>
-                        <li><strong>Fase 2:</strong> Calcula distância entre todos os pontos</li>
-                        <li><strong>Fase 3:</strong> Testa diferentes sequências de entrega</li>
-                        <li><strong>Fase 4:</strong> Escolhe a rota com MENOR distância total</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h4>🚀 Exemplo Prático</h4>
-                    <p class="description">Pedro recebe 3 pedidos:</p>
-                    <ul style="margin-left: 1rem; font-size: 0.95rem; line-height: 2;">
-                        <li>Pedido A: Coleta no Restaurante X → Entrega em Casa 1</li>
-                        <li>Pedido B: Coleta no Restaurante Y → Entrega em Casa 2</li>
-                        <li>Pedido C: Coleta no Restaurante X → Entrega em Casa 3</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;"><strong>Rota Otimizada:</strong> Pedido A → Pedido C (mesma coleta) → Pedido B</p>
-                    <p style="font-size: 0.9rem; color: #28A745; font-weight: bold;">💚 Economiza 2km de deslocamento!</p>
-                </div>
-
-                <div class="card">
-                    <h4>⏱️ Cálculo de ETA</h4>
-                    <p class="description">O sistema estima tempo de entrega considerando:</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>Distância total da rota (em km)</li>
-                        <li>Velocidade média do veículo (25-40 km/h)</li>
-                        <li>Tempo de espera no restaurante</li>
-                        <li>Tempo de parada em cada casa</li>
-                        <li>Horário (trânsito varia por hora)</li>
-                    </ul>
-                    <div style="background: #f5f5f5; padding: 0.8rem; border-radius: 6px; margin-top: 1rem; font-family: 'Courier New', monospace; font-size: 0.85rem;">
-                        ETA = (Distância ÷ Velocidade) + Esperas
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h4>🤖 Otimização Contínua</h4>
-                    <p class="description">O algoritmo se melhora com o tempo:</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>Aprende rotas mais rápidas entre pontos</li>
-                        <li>Ajusta tempos conforme horário do dia</li>
-                        <li>Considera eventos de trânsito em tempo real</li>
-                        <li>Melhora previsões com histórico</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h4>💰 Benefício Financeiro</h4>
-                    <p class="description">Otimizar rotas economiza:</p>
-                    <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
-                        <li>⛽ Combustível (menos km = menos gasto)</li>
-                        <li>⏳ Tempo de trabalho (mais entregas/hora)</li>
-                        <li>🔧 Manutenção do veículo (menos desgaste)</li>
-                        <li>💰 Aumenta renda do entregador</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h4>🎯 Problema do Caixeiro Viajante</h4>
-                    <p class="description">Isso é uma variação do famoso problema da Ciência da Computação:</p>
-                    <p style="margin-top: 0.5rem; font-size: 0.9rem;"><strong>"Qual é o caminho mais curto visitando todos os pontos?"</strong></p>
-                    <p style="margin-top: 1rem; font-size: 0.85rem; color: #666;">Em tempo real, com milhões de entregadores e pedidos, o iFood usa algoritmos sofisticados como <strong>Simulated Annealing</strong> e <strong>Genetic Algorithms</strong> para resolver isso em milissegundos.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Fluxograma de Passo a Passo -->
-        
-
-        <!-- Modelos de Frota -->
-        <section id="modelos">
+  <script src="script.js"></script>
+</body>
 </html>

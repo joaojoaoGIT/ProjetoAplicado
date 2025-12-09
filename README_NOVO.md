@@ -69,7 +69,7 @@ ProjetoAplicado-main/
     ├── Logo.png
     ├── Logo.jpeg
     ├── Header.png
-    ├── Fluxograma.jpeg
+    ├── Fluxograma.png
     └── conceitual.png
 ```
 
