@@ -16,6 +16,35 @@
   --radius: 12px;
 }
 
+/* Classe para destacar palavras importantes em vermelho nas seções */
+.emph-red {
+  color: var(--primary);
+  font-weight: 800;
+}
+
+/* Estilos específicos para a seção de Conclusão: texto justificado e listas limpas */
+#conclusao .conclusion-dossier {
+  text-align: justify;
+  line-height: 1.65;
+  margin-top: 16px;
+  color: var(--foreground);
+}
+
+#conclusao .conclusion-dossier p { margin-bottom: 12px; }
+
+#conclusao .conclusion-dossier ul {
+  list-style: disc;
+  margin: 8px 0 16px 1.2rem;
+  padding: 0;
+}
+
+#conclusao .conclusion-dossier ul li { margin-bottom: 6px; }
+
+/* Em telas muito pequenas, reduzir o max-width e manter legibilidade */
+@media (max-width: 480px) {
+  #conclusao .conclusion-dossier { font-size: 0.95rem; }
+}
+
 .dark {
   --background: #0f0f17;
   --background-alt: #1a1a2e;
@@ -1307,4 +1336,15 @@ body {
 /* Minor improvement for very wide screens */
 @media (min-width: 1400px) {
   .container { max-width: 1320px; }
+}
+
+/* Estilo dos links de autor no footer (nome clicável em vermelho) */
+.footer-copy a {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+.footer-copy a:hover,
+.footer-copy a:focus {
+  text-decoration: underline;
 }

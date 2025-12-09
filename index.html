@@ -311,23 +311,38 @@
       <div class="conclusion-content">
         <span class="section-badge">Conclusão</span>
         <h2 class="section-title">O Equilíbrio Perfeito</h2>
-        <p class="conclusion-text">O sistema equilibra <strong>velocidade</strong>, <strong>eficiência</strong> e <strong>disponibilidade</strong> para garantir a melhor entrega no menor tempo possível.</p>
-        <div class="conclusion-pillars">
-          <div class="pillar">
-            <span class="pillar-icon">⚡</span>
-            <h4>Velocidade</h4>
-            <p>Decisões em tempo real</p>
-          </div>
-          <div class="pillar">
-            <span class="pillar-icon">🎯</span>
-            <h4>Eficiência</h4>
-            <p>Otimização de recursos</p>
-          </div>
-          <div class="pillar">
-            <span class="pillar-icon">✅</span>
-            <h4>Disponibilidade</h4>
-            <p>Sistema sempre online</p>
-          </div>
+        <p class="conclusion-text">O sistema equilibra <span class="emph-red">velocidade</span>, <span class="emph-red">eficiência</span> e <span class="emph-red">disponibilidade</span> para garantir a melhor entrega no menor tempo possível.</p>
+
+        <div class="conclusion-dossier">
+          <p>Ao longo da investigação, conseguimos entender que por trás do botão <span class="emph-red">“Fazer pedido”</span> existe um sistema extremamente complexo, baseado em cálculos contínuos, priorização inteligente e tomada de decisão automática. A lógica não é só <span class="emph-red">“chamar o entregador mais perto”</span>, mas sim equilibrar <span class="emph-red">tempo</span>, <span class="emph-red">custo</span>, <span class="emph-red">disponibilidade</span>, <span class="emph-red">segurança</span>, <span class="emph-red">reputação</span>, <span class="emph-red">histórico de desempenho</span> e até o comportamento dos usuários.</p>
+
+          <p>Um dos pontos centrais que descobrimos é que a lógica desses aplicativos lembra muito o <span class="emph-red">Problema do Caixeiro Viajante (TSP – Traveling Salesman Problem)</span>, um clássico da matemática e da computação. Ele busca a melhor rota possível, gastando o menor tempo possível, levando em conta todas as variáveis. Assim como o TSP, o sistema do iFood precisa <span class="emph-red">otimizar</span> centenas de pequenas decisões ao mesmo tempo, lidando com distância, trânsito, entregadores ocupados e restaurantes com diferentes tempos de preparo — é literalmente <span class="emph-red">otimização de rota em tempo real</span>.</p>
+
+          <p>Também percebemos que o app usa estratégias psicológicas que mantêm o usuário preso no processo, como o <span class="emph-red">FOMO</span> (medo de ficar de fora) e a ansiedade controlada. Por exemplo:</p>
+          <ul>
+            <li>A barra <span class="emph-red">“Procurando entregador...”</span> mantém o usuário atento</li>
+            <li>A animação de carregamento evita que a pessoa feche o app</li>
+            <li>A notificação <span class="emph-red">“Encontramos alguém!”</span> gera alívio e dopamina</li>
+          </ul>
+
+          <p>Tudo isso faz parte da experiência pensada para reduzir abandono de pedido. Durante o projeto, identificamos alguns problemas reais enfrentados pelos apps, como:</p>
+          <ul>
+            <li>Falta de entregadores em horários de pico</li>
+            <li>Rotas pouco eficientes quando há muitos pedidos na mesma região</li>
+            <li>Demora no restaurante afetando toda a cadeia</li>
+            <li>Cálculos que precisam ser refeitos a cada segundo</li>
+          </ul>
+
+          <p>Para entender isso, investigamos:</p>
+          <ul>
+            <li>Cálculo de distância (<span class="emph-red">Haversine</span>)</li>
+            <li>Tempo estimado de deslocamento</li>
+            <li>Janela de disponibilidade dos entregadores</li>
+            <li>Fila de pedidos por restaurante</li>
+            <li>Ranking de prioridade baseado em desempenho</li>
+          </ul>
+
+          <p>A partir disso, conseguimos reconstruir um modelo lógico que mostra como o sistema funciona por trás das telas — do momento que o usuário clica em confirmar pedido até o instante em que um entregador é selecionado. Nosso dossiê final traz fluxograma, DER, mockups e explicações técnicas que deixam claro que nada nesse processo acontece por acaso: é tudo <span class="emph-red">algoritmo</span>, <span class="emph-red">otimização</span> e <span class="emph-red">psicologia</span> trabalhando juntos para criar a sensação de rapidez e confiabilidade.</p>
         </div>
       </div>
     </div>
@@ -397,7 +412,7 @@
           <span>AppsDelivery</span>
         </div>
         <p>Projeto desenvolvido na escola técnica ULBRA São Lucas</p>
-        <p class="footer-copy">Feito</p>
+        <p class="footer-copy">Feito por <a href="https://github.com/joaojoaoGIT" target="_blank" rel="noopener noreferrer">João Pedro Cassanego</a> e <a href="https://github.com/prichoa7" target="_blank" rel="noopener noreferrer">Kelvyn Prichoa</a></p>
       </div>
     </div>
   </footer>
