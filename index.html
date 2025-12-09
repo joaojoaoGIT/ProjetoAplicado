@@ -203,8 +203,16 @@
       </div>
       <div class="db-features">
         <div class="db-large-card">
-          <h4>Descrição do Modelo de Dados</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.</p>
+            <h4>Descrição do Modelo de Dados</h4>
+            <p>O banco de dados foi criado para representar apenas o processo de <span class="emph-red">atribuição de entregadores</span>. Ele contém quatro entidades principais: <span class="emph-red">Cliente</span>, <span class="emph-red">Pedido</span>, <span class="emph-red">Entregador</span> e <span class="emph-red">Atribuição</span>.</p>
+
+            <p>O <span class="emph-red">Cliente</span> guarda dados básicos do usuário, enquanto o <span class="emph-red">Pedido</span> registra informações como valor, horário e status. Cada cliente pode fazer vários pedidos.</p>
+
+            <p>O <span class="emph-red">Entregador</span> armazena nome, tipo de transporte e avaliação média, elementos essenciais para o cálculo de prioridade.</p>
+
+            <p>A entidade <span class="emph-red">Atribuição</span> conecta cada pedido a possíveis entregadores, registrando distância, estimativa de entrega e o <span class="emph-red">score final</span> que o sistema usa para decidir quem é o melhor candidato.</p>
+
+            <p>Com essas entidades e seus relacionamentos, o sistema consegue comparar entregadores, calcular rotas, registrar tentativas e escolher automaticamente a opção mais eficiente para cada pedido.</p>
         </div>
       </div>
     </div>
