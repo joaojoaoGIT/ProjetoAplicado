@@ -1266,9 +1266,12 @@ body {
   .hero-content { max-width: 680px; }
 
   /* Carousel - allow images to scale and avoid fixed height cropping */
-  .carousel-track { height: auto; }
-  .carousel-slide, .carousel-slide.active { position: relative; }
-  .carousel-slide img.carousel-img { height: auto; max-height: 55vh; object-fit: cover; }
+    /* Mantém os slides sobrepostos em telas pequenas e usa uma altura
+      responsiva para o track para que as imagens redimensionem sem
+      empilhar (previne slides aparecendo acima/abaixo). */
+    .carousel-track { height: 55vh; max-height: 55vh; }
+    .carousel-slide, .carousel-slide.active { position: absolute; inset: 0; }
+    .carousel-slide img.carousel-img { width: 100%; height: 100%; object-fit: cover; max-height: 55vh; }
   .carousel-arrow { width: 36px; height: 36px; font-size: 0.95rem; }
   .carousel-nav { gap: 6px; }
 
